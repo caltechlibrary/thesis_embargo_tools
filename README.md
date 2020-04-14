@@ -47,10 +47,10 @@ is not available see [INSTALL-Python3.md](INSTALL-Python3.md)
 This project depends the following pacakges which may need
 to be installed on your computer.
 
-+ [xlsxwriter](https://xlsxwriter.readthedocs.io/)
++ [openpyxl](https://openpyxl.readthedocs.io/en/stable/)
 
 ```
-    python3 -m pip install XlsxWrite
+    python3 -m pip install openpyxl
 ```
 
 

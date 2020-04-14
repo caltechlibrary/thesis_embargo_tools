@@ -3,20 +3,21 @@ import html
 from html.parser import HTMLParser
 
 class StripperHTMLParser (HTMLParser):
-    cdata = []
+    _plain_text = []
     def handle_data(self, data):
-        self.cdata.append(html.unescape(data))
+        self._plain_text.append(html.unescape(data))
     def get_text(self):
-        return ''.join(self.cdata)
+        return ''.join(self._plain_text)
 
 def strip_html_markup(src):
     stripper = StripperHTMLParser()
+    stripper.reset()
     stripper.feed(src)
     return stripper.get_text()
     
 
 def get_name_from_subject(src):
-    [ _, name ] = src.split('Embargo Request for ')
+    [ junk, name ] = src.split('Embargo Request for ', 2)
     if (name != None) and (name != ''):
         return name
     return ''
@@ -24,9 +25,24 @@ def get_name_from_subject(src):
 def get_value(prefix, src, default):
     value = default
     if src.startswith(prefix):
-        [ _, value ] = src.split(': ')
-    return value
+        [ junk, value ] = src.split(': ', 2)
+    return value.replace('<br />', '').replace('</p>', '')
      
+def unwrap_lines(src):
+    # NOTE: We need to join our lines that are forced wrapped at
+    # column 80.
+    lines = src.split('\n')
+    n = []
+    for line in lines:
+        if line.endswith('='):
+            line = f'{line[0:-1]}'
+            n.append(line)
+        else:
+            n.append(line)
+            n.append('\n')
+    return ''.join(n).split('\n')
+
+    
 
 def get_object_from_payload(src):
     obj = {
@@ -35,15 +51,18 @@ def get_object_from_payload(src):
         'requestor_email': '',
         'thesis_author': '',
         'thesis_title': '',
-        'grad_year': None,
+        'grad_year': '',
         'advisor_name': '',
         'advisor_email': '',
         'division': '',
         'request': '',
     }
-    for i, line in enumerate(strip_html_markup(src).split('\n')):
-        if line.startswith('Reason for Requesting Embargo: '):
-            obj['embargo_reason'] = get_value('Reason for Requesting Embargo: ', line, '')
+    lines = unwrap_lines(src)
+    # iterate through the document and populate
+    # our object.
+    for i, line in enumerate(lines):
+        if line.startswith('<p>Reason for Requesting Embargo: '):
+            obj['embargo_reason'] = get_value('<p>Reason for Requesting Embargo: ', line, '')
         if line.startswith('Requestor Name: '):
             obj['requestor_name'] = get_value('Requestor Name: ', line, '')
         if line.startswith('Requestor Email: '):
