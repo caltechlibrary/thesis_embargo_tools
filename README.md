@@ -38,9 +38,20 @@ the tools in this project to make them available on your computer.
 Finally you'll need to have [Box](https://www.imss.caltech.edu/box) 
 installed and available on your machine.
 
-If you don't have Python 3.8 on your system the recommended
+If you don't have Python 3.8 and `pip` on your system the recommended
 way to get it installed is to install [Miniconda](https://docs.conda.io/en/latest/miniconda.html). If that
 is not available see [INSTALL-Python3.md](INSTALL-Python3.md) 
+
+### Installing additional Python packages
+
+This project depends the following pacakges which may need
+to be installed on your computer.
+
++ [xlsxwriter](https://xlsxwriter.readthedocs.io/)
+
+```
+    python3 -m pip install XlsxWrite
+```
 
 
 Usage

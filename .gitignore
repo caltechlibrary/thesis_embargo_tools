@@ -84,3 +84,8 @@ __pycache__
 
 # Project-specific things to ignore:
 # .............................................................................
+*.txt
+*.bak
+*~
+.DS_Store
+test_data/*
