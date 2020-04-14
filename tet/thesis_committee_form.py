@@ -1,3 +1,4 @@
+import os
 from openpyxl import load_workbook
 
 class CommitteeForm:
@@ -72,7 +73,9 @@ class CommitteeForm:
             },
     }
 
-    def render(self, xlt_filename, xl_filename, name, obj):
+    def render(self, xl_filename, name, obj):
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+        xlt_filename = os.path.join(dir_path, 'templates', 'thesis_embargo_committee.xlsx')
         wb = load_workbook(filename = xlt_filename)
         ws = wb['Form']
         form = self.form
