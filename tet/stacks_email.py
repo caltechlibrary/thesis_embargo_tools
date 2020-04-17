@@ -17,9 +17,10 @@ def strip_html_markup(src):
     
 
 def get_name_from_subject(src):
-    [ junk, name ] = src.split('Embargo Request for ', 2)
-    if (name != None) and (name != ''):
-        return name
+    if 'Embargo Request for ' in src: 
+        [ junk, name ] = src.split('Embargo Request for ', 2)
+        if (name != None) and (name != ''):
+            return name
     return ''
 
 def get_value(prefix, src, default):
