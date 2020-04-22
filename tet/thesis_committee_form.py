@@ -9,8 +9,8 @@ class CommitteeForm:
                 'default': '',
             },
             'date_routing_initiated': {
-                'label': 'B9',
-                'value': 'C9',
+                'label': 'B8',
+                'value': 'C8',
                 'default': '',
             },
             'type_of_exception_request': {

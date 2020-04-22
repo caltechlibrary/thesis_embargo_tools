@@ -1,5 +1,6 @@
 import sys
 import os
+from datetime import datetime
 from tet import CommitteeForm, process_email
 
 def usage(msg = "", exit_code = 0):
@@ -19,6 +20,9 @@ using for use by the embargo committee.
 
 def generate_committee_excel(stacks_email, xlsx_filename):
     name, obj = process_email(stacks_email)
+    #Add today's date
+    today = datetime.today().date().isoformat()
+    obj['date_routing_initiated'] = today
     form = CommitteeForm()
     form.render(xlsx_filename, name, obj)
 
