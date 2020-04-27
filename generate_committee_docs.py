@@ -1,6 +1,7 @@
 import sys
 import os
 from datetime import datetime
+from dateutil.relativedelta import relativedelta
 from tet import CommitteeForm, process_email
 
 def usage(msg = "", exit_code = 0):
@@ -21,8 +22,10 @@ using for use by the embargo committee.
 def generate_committee_excel(stacks_email, xlsx_filename):
     name, obj = process_email(stacks_email)
     #Add today's date
-    today = datetime.today().date().isoformat()
-    obj['date_routing_initiated'] = today
+    today = datetime.today().date()
+    obj['date_routing_initiated'] = today.isoformat()
+    date_after_month = today + relativedelta(months=1)
+    obj['committee_due_date'] = date_after_month.isoformat() 
     form = CommitteeForm()
     form.render(xlsx_filename, name, obj)
 
