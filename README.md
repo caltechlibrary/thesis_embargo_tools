@@ -22,37 +22,36 @@ Introduction
 ------------
 
 There is a committee review process for embargoing Caltech Thesis.
-These tools are used to marshal those requests among committee 
-members and complete the review process.
+These tools generate the forms needed for the approval process.
 
 
 Installation
 ------------
 
-You need Python 3.8 available to run the tools. Additionally
-you will need to be familair with create folders and files on your
-own computer, how to work in your email environment including
-downloading email messages as plain text files,
-work with Excel spreadsheets, use a web browser and how to "unzip"
-the tools in this project to make them available on your computer.
-Finally you'll need to have [Box](https://www.imss.caltech.edu/box) 
-installed and available on your machine.
+### Python Install
 
-If you don't have Python 3.8 and `pip` on your system the recommended
-way to get it installed is to install [Miniconda](https://docs.conda.io/en/latest/miniconda.html). If that
-is not available see [INSTALL-Python3.md](INSTALL-Python3.md) 
+You need to have Python 3.7 on your machine
+([Miniconda](https://docs.conda.io/en/latest/miniconda.html) is a great
+installation option).  Test whether you have python installed by opening a terminal or
+anaconda prompt window and typing `python -V`, which should print version 3.7
+or greater.
 
-### Installing additional Python packages
+### Clone epxml_to_datacite
 
-This project depends the following pacakges which may need
-to be installed on your computer.
+It's best to download this software using git.  To install git, type
+`conda install git` in your terminal or anaconda prompt window.  Then find where you
+want the thesis_embargo_tools folder to live on your computer in File Explorer or Finder
+(This could be the Desktop or Documents folder, for example).  Type `cd `
+in anaconda prompt or terminal and drag the location from the file browser into
+the terminal window.  The path to the location
+will show up, so your terminal will show a command like
+`cd /Users/tmorrell/Desktop`.  Hit enter.  Then type
+`git clone https://github.com/caltechlibrary/thesis_embargo_tools.git`. Once you
+hit enter you'll see an thesis_embargo_tools folder.  Type `cd thesis_embargo_tools`
 
-+ [openpyxl](https://openpyxl.readthedocs.io/en/stable/)
+### Install
 
-```
-    python3 -m pip install openpyxl
-```
-
+Now that you're in the thesis_embargo_tools folder, type `pip install .`
 
 Usage
 -----
@@ -77,8 +76,6 @@ Acknowledgments
 ---------------
 
 This work was funded by the California Institute of Technology Library.
-
-(If this work was also supported by other organizations, acknowledge them here.  In addition, if your work relies on software libraries, or was inspired by looking at other work, it is appropriate to acknowledge this intellectual debt too.)
 
 <div align="center">
   <br>
