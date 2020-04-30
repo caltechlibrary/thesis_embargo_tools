@@ -33,3 +33,4 @@ if __name__ == '__main__':
     if len(sys.argv) != 3:
         usage("", 1)
     generate_committee_excel(sys.argv[1], sys.argv[2])
+    print(f'Created file: {sys.argv[2]}')

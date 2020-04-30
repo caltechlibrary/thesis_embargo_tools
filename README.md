@@ -36,7 +36,7 @@ installation option).  Test whether you have python installed by opening a termi
 anaconda prompt window and typing `python -V`, which should print version 3.7
 or greater.
 
-### Clone epxml_to_datacite
+### Clone thesis_embargo_tools
 
 It's best to download this software using git.  To install git, type
 `conda install git` in your terminal or anaconda prompt window.  Then find where you
@@ -53,17 +53,19 @@ hit enter you'll see an thesis_embargo_tools folder.  Type `cd thesis_embargo_to
 
 Now that you're in the thesis_embargo_tools folder, type `pip install .`
 
+### Updates
+
+To update the script, type `git pull`
+
 Usage
 -----
 
 + Use the stacks form to generate the request
-+ When you receive the request in email, download the email message
-+ Create an appropriate folder structure for the students request
-+ Use [generate_committee_form.py](docs/generate_committee_form.md) to generate the Excel file that will be placed in the Box folder for the student's request.
-    + this program will generate two documents
-        + an Excel file the committee will complete for the review process
-        + a plain text file with an example email message to be sent to the committee members
-+ Forward link to the Excel file used for the committee form using the plain text committee email message
++ When you receive the request in email, download the email message and save it
+to the thesis_embargo_tools folder
++ Type `python generate_committee_docs.py stacks_email.eml xlsx_filename.xlsx`,
+providing the name of the email message you saved earlier and the desired
+output file name
 
 
 License

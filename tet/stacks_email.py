@@ -89,8 +89,11 @@ def get_name_and_object(src):
     '''Take a str version of the EMail message, parse, return a touple of name and message'''
     msg = email.message_from_string(src)
     subject = msg.get('Subject')
-    payload = msg.get_payload()
     name = get_name_from_subject(subject)
+    payload = msg.get_payload()
+    if type(payload) is list:
+        #Handle multiple payloads from outlook
+        payload = payload[0].get_payload()
     obj = get_object_from_payload(payload)
     return name, obj
 
