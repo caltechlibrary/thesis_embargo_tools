@@ -62,8 +62,11 @@ def get_object_from_payload(src):
     # iterate through the document and populate
     # our object.
     for i, line in enumerate(lines):
+        print(line)
         if line.startswith('<p>Reason for Requesting Embargo: '):
             obj['embargo_reason'] = get_value('<p>Reason for Requesting Embargo: ', line, '')
+        if line.startswith('Reason for Requesting Exception: '):
+            obj['embargo_reason'] = get_value('Reason for Requesting Exception: ', line, '')
         if line.startswith('Requestor Name: '):
             obj['requestor_name'] = get_value('Requestor Name: ', line, '')
         if line.startswith('Requestor Email: '):
