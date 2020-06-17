@@ -26,7 +26,7 @@ def get_name_from_subject(src):
 def get_value(prefix, src, default):
     value = default
     if src.startswith(prefix):
-        [ junk, value ] = src.split(': ', 2)
+        value = src.split(prefix)[1]
     return value.replace('<br />', '').replace('</p>', '')
      
 def unwrap_lines(src):
@@ -61,12 +61,37 @@ def get_object_from_payload(src):
     lines = unwrap_lines(src)
     # iterate through the document and populate
     # our object.
-    for i, line in enumerate(lines):
-        print(line)
-        if line.startswith('<p>Reason for Requesting Embargo: '):
-            obj['embargo_reason'] = get_value('<p>Reason for Requesting Embargo: ', line, '')
-        if line.startswith('Reason for Requesting Exception: '):
-            obj['embargo_reason'] = get_value('Reason for Requesting Exception: ', line, '')
+
+    lines = iter(lines)
+    for line in lines:
+        if line.startswith('<p>Reason for Requesting Embargo:'):
+            bigline = line
+            line = next(lines)
+            while ':' not in line:
+                bigline = bigline + line
+                line = next(lines)
+            obj['embargo_reason'] = get_value('<p>Reason for Requesting Embargo:', bigline, '')
+        if line.startswith('Reason for Requesting Embargo:'):
+            bigline = line
+            line = next(lines)
+            while ':' not in line:
+                bigline = bigline + line
+                line = next(lines)
+            obj['embargo_reason'] = get_value('Reason for Requesting Embargo:', bigline, '')
+        if line.startswith('Reason for Requesting Exception:'):
+            bigline = line
+            line = next(lines)
+            while ':' not in line[0:20]:
+                bigline = bigline + line
+                line = next(lines)
+            obj['embargo_reason'] = get_value('Reason for Requesting Exception:', bigline, '')
+        if line.startswith('<p>Reason for Requesting Exception:'):
+            bigline = line
+            line = next(lines)
+            while ':' not in line:
+                bigline = bigline + line
+                line = next(lines)
+            obj['embargo_reason'] = get_value('<p>Reason for Requesting Exception:', bigline, '')
         if line.startswith('Requestor Name: '):
             obj['requestor_name'] = get_value('Requestor Name: ', line, '')
         if line.startswith('Requestor Email: '):
